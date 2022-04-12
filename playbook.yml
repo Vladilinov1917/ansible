@@ -1,0 +1,22 @@
+---
+- name: Playbook du TP 
+  hosts: test
+  remote_user: drobert 
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+    - name: Install Apache
+      apt: name=apache2 update_cache=yes state=latest
+    - name: Install Haproxy
+      apt: name=haproxy update_cache=yes state=latest
+    - name: Install Prometheus
+      apt: name=prometheus update_cache=yes state=latest
+    - name: Creation de deux dossiers
+      ansible.builtin.file:
+        path: "/tmp/{{ item }}"
+        state: directory
+        mode: '0755'
+      loop:
+        - "dylan"
+        - "soufiane" 
